@@ -1,0 +1,400 @@
+// Center any block element
+
+@mixin push--autoCenter {
+  display: block;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+// Create scalable elements
+// images or backgrounds that require a ratio
+@mixin responsive-ratio($x, $y, $pseudo: false) {
+  $padding: unquote(($y / $x) * 100 + "%");
+  @if $pseudo {
+    &:before {
+      @include pseudo($pos: relative);
+      width: 100%;
+    }
+  } @else {
+    padding-top: $padding;
+  }
+}
+
+$darkMode: true;
+
+@mixin navbar(
+  $buttons,
+  $bgColor,
+  $txtColor,
+  $width: 80%,
+  $height: 4rem,
+  $mHeight: 1rem,
+  $fontFamily: helvetica
+) {
+  /* Properties for the navbar itself */
+  width: $width;
+  height: $height;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background-color: $bgColor;
+  color: $txtColor;
+  font-family: $fontFamily;
+  text-align: center;
+  padding: 0.5rem;
+  display: block;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  z-index: 1;
+
+  /* Properties for each of the buttons */
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+    /* Properties for buttons with links */
+    li.navbtn {
+      font-size: calc(0.75rem + 0.75vw);
+      padding: 0;
+      margin: 0;
+      margin-top: $mHeight;
+    }
+    /* Properties of a button being hovered over */
+    li.navbtn:hover {
+      font-size: calc(1rem + 0.75vw);
+      transition: font-size 0.1s;
+      ol.dropdown {
+        visibility: visible;
+        margin-top: 0;
+        transition: margin-top 0.5s;
+      }
+    }
+    /* Used for either logos or site names */
+    li#main {
+      font-size: calc(2rem + 0.75vw);
+      img {
+        height: $height;
+        margin: 0;
+        padding: 0;
+      }
+    }
+    /* used for dropdown menus */
+    ol.dropdown {
+      visibility: hidden;
+      list-style: none;
+      background-color: $bgColor;
+      border-radius: 0 0 0.5rem 0.5rem;
+      width: 5rem;
+      margin-top: -10rem;
+      z-index: -10;
+      li {
+        font-size: calc(0.1rem + 0.75vw);
+        text-align: center;
+        margin: 0.5rem 0 1rem -2rem;
+      }
+      li:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
+}
+
+@mixin footer($bgColor, $txtColor, $height: 6rem, $fontFamily: helvetica) {
+  background: $bgColor;
+  color: $txtColor;
+  width: calc(100% - 4rem);
+  padding: 2rem;
+  height: $height;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  font-family: $fontFamily;
+  h3 {
+    padding: 0;
+    margin: 0;
+  }
+  div#backToTop {
+    position: absolute;
+    text-align: center;
+    background-color: $bgColor;
+    padding: 0.5rem;
+    border-radius: 0.5rem 0 0 0;
+    filter: brightness(0.8);
+    width: 8%;
+    height: 1rem;
+    bottom: 0;
+    right: 0;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    .mediaLinks {
+      ol {
+        display: flex;
+        justify-content: space-evenly;
+        .mediaIcon {
+          width: 3rem;
+          height: 3rem;
+          border: $txtColor 2px solid;
+          border-radius: 0.5rem;
+          margin-right: 1rem;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .mediaLinks,
+    .pageList {
+      text-align: center;
+    }
+    .contactInfo {
+      text-align: right;
+    }
+    li {
+      img {
+        height: $height;
+        margin: 0;
+        padding: 0;
+      }
+      ol {
+        list-style: none;
+        li {
+          font-size: calc(0.25rem + 00.75vw);
+        }
+      }
+    }
+  }
+}
+
+// fade position
+@mixin fade($type) {
+  @if $type == "hide" {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s opacity 1s;
+  } @else if $type "show" {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 1s opacity 1s;
+  }
+}
+
+//font face mixin
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + ".eot");
+    src: url($file-name + ".eot?#iefix") format(embedded-opentype),
+      url($file-name + ".woff") format("woff"),
+      url($file-name + ".ttf") format("truetype"),
+      url($file-name + ".svg") format("svg");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+// simple way to define a box
+@mixin box($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+//cover whole background
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+// this is when we use ::after and ::before
+@mixin before-after(
+  $width: 100%,
+  $height: 100%,
+  $display: block,
+  $pos: absolute,
+  $content: ""
+) {
+  content: $content;
+  display: $display;
+  position: $pos;
+  @include box($width, $height);
+}
+
+//flexbox toolkit
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-column {
+  @include flex-center();
+  flex-direction: column;
+}
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+//this is when we use ::after and ::before
+@mixin pseudo(
+  $width: 100%,
+  $height: 100%,
+  $display: block,
+  $pos: absolute,
+  $content: ""
+) {
+  content: $content;
+  display: $display;
+  position: $pos;
+  @include box($width, $height);
+}
+
+@mixin position($position, $args) {
+  @each $pos in top right bottom left {
+    $i: index($args, $pos);
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) {
+      #{$pos}: nth($args, $i + 1);
+    }
+  }
+  position: $position;
+}
+
+@mixin absolute($args: " ") {
+  @include position(absolute, $args);
+}
+@mixin fixed($args: " ") {
+  @include position(fixed, $args);
+}
+@mixin relative($args: " ") {
+  @include position(relative, $args);
+}
+
+.menu li {
+  @include absolute(top 100% left 0);
+}
+.sticky-bar {
+  @include fixed(top 0 left 0);
+}
+.submenu {
+  @include relative();
+}
+
+$phone-wide: 480px;
+$phablet: 560px;
+$tablet-small: 640px;
+$tablet: 768px;
+$large: 1024px;
+$desktop: 1280px;
+$desktop-wide: 1440px;
+
+@mixin phone {
+  @media only screen and (min-width: $phone-wide) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media only screen and (min-width: $tablet) {
+    @content;
+  }
+}
+@mixin large {
+  @media only screen and (min-width: $large) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media only screen and (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin input-placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+// @include font-face("MyFont", './base/typography/myfont.ttf', $style: underline)
+// div{
+//   font-family: "MyFont";
+// }
+
+@mixin text-shorten {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//creating css triangles
+@mixin css-triangle(
+  $color,
+  $direction,
+  $size: 6px,
+  $position: absolute,
+  $round: false
+) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+    border-radius: 3px;
+  }
+  @if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  } @else if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@mixin animateDelay($delay: 100ms) {
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) {
+      transition-delay: $delay * $i;
+    }
+  }
+}
