@@ -38,8 +38,6 @@ const App = () => {
     const detectCrapple = () => {
         return (['Mac68K', 'MacPPC', 'MacIntel', 'iPhone', 'iPod', 'iPad'].indexOf(navigator.platform) === -1)
     }
-
-    console.log(detectCrapple())
     
     const getScore = async () => {
         var options = {
@@ -219,16 +217,20 @@ const App = () => {
     }
 
     if(user === ''){
-        return(
-            <div id='setup'>
-                <h1><span>*</span>Minesweeper<span>*</span></h1>
-                <h2>{navigator.platform}</h2>
-                <input className='textInputs' type='text' placeholder='Name' maxLength='10' id='user' />
-                <input className='textInputs' type="number" placeholder='Board Size' min='5' max='20' style={{top: '55vh'}} id='size' />
-                <input className='textInputs' type="number" placeholder='Bomb Ratio' min='0' max='100' style={{top: '65vh'}} id='bomb' />
-                <button id='startBtn' onClick={() => {setup()}}>Start Game</button>
-            </div>
-        )
+        if(!landscape){
+            return(
+                <div id='setup'>
+                    <h1><span>*</span>Minesweeper<span>*</span><br /></h1>
+                    <p>Version by Ethan Roldan</p>
+                    <input className='textInputs' type='text' placeholder='Name' maxLength='10' id='user' />
+                    <input className='textInputs' type="number" placeholder='Board Size' min='5' max='20' style={{top: '55vh'}} id='size' />
+                    <input className='textInputs' type="number" placeholder='Bomb Ratio' min='0' max='100' style={{top: '65vh'}} id='bomb' />
+                    <button id='startBtn' onClick={() => {setup()}}>Start Game</button>
+                </div>
+            )
+        }else{
+            return <div id='rotate'><h1>Please Rotate Your Device</h1></div>
+        }
     }
 
     return (
