@@ -391,7 +391,7 @@ div#container div#gameBoard div#squares {
 }
 div#container div#gameBoard div.square {
   border: solid 2px black;
-  box-shadow: 0 1px 2px #fff, 0 -1px 1px #666, inset 0 -12px 12px rgba(0, 0, 0, 0.5), inset 0 12px 12px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1vw 2vw #fff, 0 -0.01vw 0.01vw #666, inset 0 -1vw 1vw rgba(0, 0, 0, 0.5), inset 0 1vw 1vw rgba(255, 255, 255, 0.8);
   /*top internal highlight*/
   display: flex;
   align-content: center;

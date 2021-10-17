@@ -34,8 +34,6 @@ const App = () => {
     useEffect(() => {
         window.addEventListener('orientationchange', () => {(window.matchMedia("(orientation: landscape)").matches) ? setLandscape(true) : setLandscape(false)})
     },[])
-
-    console.log(window.matchMedia("(orientation: landscape)").matches)
     
     const getScore = async () => {
         var options = {
@@ -118,6 +116,10 @@ const App = () => {
         const res = await axios.request(options);
         setGame(res.data.board);
         setSafe(size ** 2 - bomb);
+        let squares = document.getElementsByClassName('square');
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].classList.add('hidden');
+        }
     }
 
     useEffect(() => {
@@ -130,11 +132,6 @@ const App = () => {
     const reset = () => {
         setScore(0);
         setUser('');
-        let squares = document.getElementsByClassName('square');
-        for (let i = 0; i < squares.length; i++) {
-            squares[i].classList.add('hidden');
-        }
-        getBoard(boardSize, bombs);
     }
 
     const die = () => {
@@ -210,8 +207,9 @@ const App = () => {
         const ratio = Math.floor((bomb / 100) * (size ** 2));
         setBoardSize(size);
         setBombs(ratio);
-        setUser(user);
         getBoard(size, ratio);
+        setUser(user);
+        setDead(false);
     }
 
     if(user === ''){
