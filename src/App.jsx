@@ -30,10 +30,12 @@ const App = () => {
     );
     const [user, setUser] = useState('');
     const [score, setScore] = useState(0);
-    const [landscape, setLandscape] = useState(window.innerWidth < window.innerHeight);
+    const [landscape, setLandscape] = useState(window.matchMedia("(orientation: portrait)").matches);
     useEffect(() => {
-        window.addEventListener('orientationchange', () => {(window.innerWidth < window.innerHeight) ? setLandscape(false) : setLandscape(true)})
+        window.addEventListener('orientationchange', () => {(window.matchMedia("(orientation: landscape)").matches) ? setLandscape(true) : setLandscape(false)})
     },[])
+
+    console.log(window.matchMedia("(orientation: landscape)").matches)
     
     const getScore = async () => {
         var options = {
