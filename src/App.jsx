@@ -135,6 +135,8 @@ const App = () => {
 
     const reset = () => {
         setScore(0);
+        setFlags(0);
+        setFlagging(0);
         setUser('');
     }
 
@@ -212,8 +214,10 @@ const App = () => {
         setBoardSize(size);
         setBombs(ratio);
         getBoard(size, ratio);
-        setUser(user);
         setDead(false);
+        setTimeout(() => {
+            setUser(user);
+        }, 1000);
     }
 
     if(user === ''){
