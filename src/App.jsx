@@ -216,6 +216,7 @@ const App = () => {
         return(
             <div id='setup'>
                 <h1><span>*</span>Minesweeper<span>*</span></h1>
+                <h2>{navigator.platform}</h2>
                 <input className='textInputs' type='text' placeholder='Name' maxLength='10' id='user' />
                 <input className='textInputs' type="number" placeholder='Board Size' min='5' max='20' style={{top: '55vh'}} id='size' />
                 <input className='textInputs' type="number" placeholder='Bomb Ratio' min='0' max='100' style={{top: '65vh'}} id='bomb' />
