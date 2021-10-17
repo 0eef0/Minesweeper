@@ -32,8 +32,14 @@ const App = () => {
     const [score, setScore] = useState(0);
     const [landscape, setLandscape] = useState(window.matchMedia("(orientation: portrait)").matches);
     useEffect(() => {
-        window.addEventListener('orientationchange', () => {(window.matchMedia("(orientation: landscape)").matches) ? setLandscape(false) : setLandscape(true)})
+        window.addEventListener('orientationchange', () => {(window.matchMedia("(orientation: landscape)").matches) ? setLandscape(detectCrapple()) : setLandscape(!(detectCrapple()))})
     },[])
+
+    const detectCrapple = () => {
+        return (['Mac68K', 'MacPPC', 'MacIntel', 'iPhone', 'iPod', 'iPad'].indexOf(navigator.platform) === -1)
+    }
+
+    console.log(detectCrapple())
     
     const getScore = async () => {
         var options = {
