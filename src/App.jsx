@@ -229,7 +229,9 @@ const App = () => {
                 </div>
             )
         }else{
-            return <div id='rotate'><h1>Please Rotate Your Device</h1></div>
+            return <div id='rotate'>
+                <h1 style={{ position: 'absolute', width: '100%', textAlign: 'center', top: '40%', fontSize: '3vw', }}>Please Rotate Your Device</h1>
+            </div>
         }
     }
 
